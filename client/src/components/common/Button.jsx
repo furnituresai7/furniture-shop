@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const base =
   'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed'
 
@@ -13,7 +15,10 @@ const sizes = {
   lg: 'px-7 py-3.5 text-base',
 }
 
-// href diya to <a> banega, warna <button>
+// Renders one of three elements depending on the props:
+// - href starting with "/"  -> React Router <Link> (internal page, no full reload)
+// - any other href          -> normal <a> (external link, tel:, mailto:, WhatsApp)
+// - no href                 -> <button>
 export default function Button({
   href,
   variant = 'primary',
@@ -24,6 +29,14 @@ export default function Button({
   ...props
 }) {
   const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`
+
+  if (href?.startsWith('/')) {
+    return (
+      <Link to={href} className={classes} {...props}>
+        {children}
+      </Link>
+    )
+  }
 
   if (href) {
     return (

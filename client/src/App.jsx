@@ -1,7 +1,7 @@
-import StyleGuide from './pages/StyleGuide'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
-  return <StyleGuide />
+  return <AppRoutes />
 }
 
 export default App
