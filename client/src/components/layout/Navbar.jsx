@@ -55,16 +55,18 @@ export default function Navbar() {
             <Search size={20} aria-hidden="true" />
           </Link>
 
-          <Button
-            href={getWhatsAppLink()}
-            variant="whatsapp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden lg:inline-flex"
-          >
-            <MessageCircle size={18} aria-hidden="true" />
-            WhatsApp Us
-          </Button>
+          {/* The wrapper is hidden below 1024px (the mobile menu has its own WhatsApp button) */}
+          <div className="hidden lg:block">
+            <Button
+              href={getWhatsAppLink()}
+              variant="whatsapp"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle size={18} aria-hidden="true" />
+              WhatsApp Us
+            </Button>
+          </div>
 
           {/* Hamburger button (below 1024px) */}
           <button
