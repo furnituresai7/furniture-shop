@@ -1,6 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import PlaceholderPage from '../components/common/PlaceholderPage'
 import Layout from '../components/layout/Layout'
+import About from '../pages/About'
+import CategoryDetails from '../pages/CategoryDetails'
+import Categories from '../pages/Categories'
+import Gallery from '../pages/Gallery'
 import Home from '../pages/Home'
 import NotFound from '../pages/NotFound'
 import ProductDetails from '../pages/ProductDetails'
@@ -14,13 +18,10 @@ export default function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:slug" element={<ProductDetails />} />
-        <Route path="/categories" element={<PlaceholderPage title="Categories" />} />
-        <Route
-          path="/categories/:slug"
-          element={<PlaceholderPage title="Category" />}
-        />
-        <Route path="/about" element={<PlaceholderPage title="About Us" />} />
-        <Route path="/gallery" element={<PlaceholderPage title="Gallery" />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/categories/:slug" element={<CategoryDetails />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<PlaceholderPage title="Contact" />} />
         <Route path="/style-guide" element={<StyleGuide />} />
         <Route path="*" element={<NotFound />} />
