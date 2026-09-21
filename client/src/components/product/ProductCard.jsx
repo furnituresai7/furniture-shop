@@ -1,5 +1,6 @@
 import { formatPrice } from '../../utils/formatPrice'
 import Button from '../common/Button'
+import SafeImage from '../common/SafeImage'
 
 export default function ProductCard({ product }) {
   const { name, slug, category, price, discountPrice, image } = product
@@ -12,18 +13,7 @@ export default function ProductCard({ product }) {
   return (
     <article className="overflow-hidden rounded-xl border border-sand-dark bg-white shadow-sm transition-shadow hover:shadow-md">
       <div className="relative aspect-[4/3] bg-sand">
-        {image ? (
-          <img
-            src={image}
-            alt={name}
-            loading="lazy"
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center text-sm text-muted">
-            Image coming soon
-          </div>
-        )}
+        <SafeImage src={image} alt={name} className="h-full w-full object-cover" />
 
         {hasDiscount && (
           <span className="absolute left-3 top-3 rounded-full bg-accent px-2.5 py-1 text-xs font-semibold text-white">
@@ -47,11 +37,7 @@ export default function ProductCard({ product }) {
           )}
         </div>
 
-        <Button
-          href={`/products/${slug}`}
-          size="md"
-          className="mt-4 w-full"
-        >
+        <Button href={`/products/${slug}`} className="mt-4 w-full">
           View Details
         </Button>
       </div>
