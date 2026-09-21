@@ -1,14 +1,12 @@
 import { formatPrice } from '../../utils/formatPrice'
+import { getPriceInfo } from '../../utils/productHelpers'
 import Button from '../common/Button'
 import SafeImage from '../common/SafeImage'
 
 export default function ProductCard({ product }) {
-  const { name, slug, category, price, discountPrice, image } = product
-
-  const hasDiscount = discountPrice && discountPrice < price
-  const discountPercent = hasDiscount
-    ? Math.round(((price - discountPrice) / price) * 100)
-    : 0
+  const { name, slug, category, image } = product
+  const { currentPrice, originalPrice, hasDiscount, discountPercent } =
+    getPriceInfo(product)
 
   return (
     <article className="overflow-hidden rounded-xl border border-sand-dark bg-white shadow-sm transition-shadow hover:shadow-md">
@@ -28,11 +26,11 @@ export default function ProductCard({ product }) {
 
         <div className="mt-2 flex items-baseline gap-2">
           <span className="text-lg font-semibold text-wood">
-            {formatPrice(hasDiscount ? discountPrice : price)}
+            {formatPrice(currentPrice)}
           </span>
           {hasDiscount && (
             <span className="text-sm text-muted line-through">
-              {formatPrice(price)}
+              {formatPrice(originalPrice)}
             </span>
           )}
         </div>

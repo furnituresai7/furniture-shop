@@ -3,6 +3,7 @@ import PlaceholderPage from '../components/common/PlaceholderPage'
 import Layout from '../components/layout/Layout'
 import Home from '../pages/Home'
 import NotFound from '../pages/NotFound'
+import ProductDetails from '../pages/ProductDetails'
 import Products from '../pages/Products'
 import StyleGuide from '../pages/StyleGuide'
 
@@ -12,10 +13,7 @@ export default function AppRoutes() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
-        <Route
-          path="/products/:slug"
-          element={<PlaceholderPage title="Product Details" />}
-        />
+        <Route path="/products/:slug" element={<ProductDetails />} />
         <Route path="/categories" element={<PlaceholderPage title="Categories" />} />
         <Route
           path="/categories/:slug"
