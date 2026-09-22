@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
-import PlaceholderPage from '../components/common/PlaceholderPage'
 import Layout from '../components/layout/Layout'
 import About from '../pages/About'
 import CategoryDetails from '../pages/CategoryDetails'
 import Categories from '../pages/Categories'
+import Contact from '../pages/Contact'
 import Gallery from '../pages/Gallery'
 import Home from '../pages/Home'
 import NotFound from '../pages/NotFound'
@@ -22,7 +22,7 @@ export default function AppRoutes() {
         <Route path="/categories/:slug" element={<CategoryDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/contact" element={<PlaceholderPage title="Contact" />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/style-guide" element={<StyleGuide />} />
         <Route path="*" element={<NotFound />} />
       </Route>

@@ -10,6 +10,10 @@ const siteConfig = {
   businessHours: '[BUSINESS_HOURS]',
   mapsUrl: '[GOOGLE_MAPS_URL]',
 
+  // Optional. In Google Maps: Share > Embed a map > copy the src="..." URL.
+  // Leave empty to search the map by address instead.
+  mapEmbedUrl: '',
+
   // Leave empty to hide the link in the footer
   social: {
     instagram: '',
