@@ -7,6 +7,8 @@ import mongoSanitize from 'express-mongo-sanitize'
 import { env } from './config/env.js'
 import { errorHandler, notFound } from './middleware/errorHandler.js'
 import healthRoutes from './routes/healthRoutes.js'
+import categoryRoutes from './routes/categoryRoutes.js'
+import productRoutes from './routes/productRoutes.js'
 
 const app = express()
 
@@ -44,9 +46,10 @@ app.use(
 )
 
 app.use('/api/health', healthRoutes)
+app.use('/api/categories', categoryRoutes)
+app.use('/api/products', productRoutes)
 
-// More route groups (products, categories, enquiries, auth) will be added here
-// in the following steps.
+// More route groups (enquiries, auth) will be added in later steps.
 
 app.use(notFound)
 app.use(errorHandler)
