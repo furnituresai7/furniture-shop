@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { requireAuth } from '../middleware/auth.js'
 import { enquiryLimiter } from '../middleware/rateLimiters.js'
 import {
   createEnquiry,
@@ -8,10 +9,11 @@ import {
 
 const router = Router()
 
+// Public: anyone can submit an enquiry
 router.post('/', enquiryLimiter, createEnquiry)
 
-// Admin-only routes (auth added in Step 15)
-router.get('/', getEnquiries)
-router.patch('/:id', updateEnquiryStatus)
+// Admin-only: viewing and managing enquiries
+router.get('/', requireAuth, getEnquiries)
+router.patch('/:id', requireAuth, updateEnquiryStatus)
 
 export default router

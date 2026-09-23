@@ -1,12 +1,11 @@
 import { Router } from 'express'
+import { requireAuth } from '../middleware/auth.js'
 import { upload } from '../middleware/upload.js'
 import { deleteImage, uploadImage } from '../controllers/uploadController.js'
 
 const router = Router()
 
-// Admin-only in practice (auth middleware added in Step 15).
-// field name must be "image" on the frontend's FormData.
-router.post('/', upload.single('image'), uploadImage)
-router.delete('/', deleteImage)
+router.post('/', requireAuth, upload.single('image'), uploadImage)
+router.delete('/', requireAuth, deleteImage)
 
 export default router

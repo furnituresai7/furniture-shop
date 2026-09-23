@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { requireAuth } from '../middleware/auth.js'
 import {
   createCategory,
   deleteCategory,
@@ -12,10 +13,8 @@ const router = Router()
 router.get('/', getCategories)
 router.get('/:slug', getCategoryBySlug)
 
-// Admin-only routes. Auth middleware will be added in Step 15;
-// these are left open for now so you can test them with Postman/Thunder Client.
-router.post('/', createCategory)
-router.put('/:id', updateCategory)
-router.delete('/:id', deleteCategory)
+router.post('/', requireAuth, createCategory)
+router.put('/:id', requireAuth, updateCategory)
+router.delete('/:id', requireAuth, deleteCategory)
 
 export default router
