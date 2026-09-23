@@ -20,21 +20,21 @@ export function getPriceInfo(product) {
   }
 }
 
-// Gallery images, falling back to the single cover image
+// Gallery image URLs, from the API's { url, publicId } objects
 export function getProductImages(product) {
-  if (product.images?.length) return product.images
-  return product.image ? [product.image] : []
+  return (product.images || []).map((image) => image.url).filter(Boolean)
 }
 
-// Same-category products first, then others to fill the list
-export function getRelatedProducts(product, allProducts, limit = 4) {
-  const others = allProducts.filter((item) => item.slug !== product.slug)
-  const sameCategory = others.filter(
-    (item) => item.categorySlug === product.categorySlug,
-  )
-  const different = others.filter(
-    (item) => item.categorySlug !== product.categorySlug,
-  )
+// Cover image for cards: first gallery image
+export function getProductCoverImage(product) {
+  return product.images?.[0]?.url || ''
+}
 
-  return [...sameCategory, ...different].slice(0, limit)
+// The API populates "category" as { _id, name, slug }; this reads it safely
+export function getCategoryName(product) {
+  return product.category?.name || ''
+}
+
+export function getCategorySlug(product) {
+  return product.category?.slug || ''
 }

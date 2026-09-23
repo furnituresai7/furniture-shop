@@ -1,27 +1,47 @@
 import { Link, useParams } from 'react-router-dom'
 import { ChevronRight, MessageCircle, Phone } from 'lucide-react'
 import Button from '../components/common/Button'
+import ErrorMessage from '../components/common/ErrorMessage'
 import SectionHeading from '../components/common/SectionHeading'
+import Spinner from '../components/common/Spinner'
 import AvailabilityBadge from '../components/product/AvailabilityBadge'
 import ProductCard from '../components/product/ProductCard'
 import ProductGallery from '../components/product/ProductGallery'
 import ProductSpecs from '../components/product/ProductSpecs'
 import siteConfig from '../config/siteConfig'
-import { demoProducts } from '../data/demoData'
+import { useFetch } from '../hooks/useFetch'
+import { getProductBySlug, getRelatedProducts } from '../services/productService'
 import { getPhoneLink } from '../utils/contactLinks'
 import { formatPrice } from '../utils/formatPrice'
 import {
+  getCategoryName,
+  getCategorySlug,
   getPriceInfo,
   getProductImages,
-  getRelatedProducts,
 } from '../utils/productHelpers'
 import { getWhatsAppLink, WHATSAPP_MESSAGES } from '../utils/whatsapp'
 
 export default function ProductDetails() {
   const { slug } = useParams()
-  const product = demoProducts.find((item) => item.slug === slug)
 
-  // Handles bad or outdated links
+  const productFetch = useFetch(() => getProductBySlug(slug), [slug])
+  const relatedFetch = useFetch(
+    () => (productFetch.data ? getRelatedProducts(slug) : Promise.resolve({ data: [] })),
+    [slug, productFetch.data],
+  )
+
+  if (productFetch.isLoading) return <Spinner label="Loading product" />
+
+  if (productFetch.error) {
+    return (
+      <main className="mx-auto max-w-6xl px-4 py-20">
+        <ErrorMessage message={productFetch.error} />
+      </main>
+    )
+  }
+
+  const product = productFetch.data
+
   if (!product) {
     return (
       <main className="mx-auto max-w-6xl px-4 py-20 text-center">
@@ -36,10 +56,12 @@ export default function ProductDetails() {
     )
   }
 
-  const { name, category, categorySlug, description } = product
+  const { name, description } = product
+  const category = getCategoryName(product)
+  const categorySlug = getCategorySlug(product)
   const { currentPrice, originalPrice, hasDiscount, discountPercent } =
     getPriceInfo(product)
-  const relatedProducts = getRelatedProducts(product, demoProducts, 4)
+  const relatedProducts = relatedFetch.data || []
   const whatsappLink = getWhatsAppLink(WHATSAPP_MESSAGES.product(name))
 
   return (
@@ -47,42 +69,25 @@ export default function ProductDetails() {
       <nav aria-label="Breadcrumb" className="mb-4 text-sm text-muted">
         <ol className="flex flex-wrap items-center gap-1">
           <li>
-            <Link to="/" className="hover:text-wood">
-              Home
-            </Link>
+            <Link to="/" className="hover:text-wood">Home</Link>
           </li>
-          <li aria-hidden="true">
-            <ChevronRight size={14} />
-          </li>
+          <li aria-hidden="true"><ChevronRight size={14} /></li>
           <li>
-            <Link to="/products" className="hover:text-wood">
-              Products
-            </Link>
+            <Link to="/products" className="hover:text-wood">Products</Link>
           </li>
-          <li aria-hidden="true">
-            <ChevronRight size={14} />
-          </li>
+          <li aria-hidden="true"><ChevronRight size={14} /></li>
           <li>
             <Link to={`/products?category=${categorySlug}`} className="hover:text-wood">
               {category}
             </Link>
           </li>
-          <li aria-hidden="true">
-            <ChevronRight size={14} />
-          </li>
-          <li aria-current="page" className="text-ink">
-            {name}
-          </li>
+          <li aria-hidden="true"><ChevronRight size={14} /></li>
+          <li aria-current="page" className="text-ink">{name}</li>
         </ol>
       </nav>
 
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-        {/* key resets the gallery when moving to another product */}
-        <ProductGallery
-          key={product.slug}
-          images={getProductImages(product)}
-          name={name}
-        />
+        <ProductGallery key={product.slug} images={getProductImages(product)} name={name} />
 
         <div>
           <p className="text-sm uppercase tracking-wide text-muted">{category}</p>
@@ -93,9 +98,7 @@ export default function ProductDetails() {
           </div>
 
           <div className="mt-4 flex flex-wrap items-baseline gap-3">
-            <span className="text-3xl font-bold text-wood">
-              {formatPrice(currentPrice)}
-            </span>
+            <span className="text-3xl font-bold text-wood">{formatPrice(currentPrice)}</span>
             {hasDiscount && (
               <>
                 <span className="text-lg text-muted line-through">
@@ -109,13 +112,7 @@ export default function ProductDetails() {
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Button
-              href={whatsappLink}
-              variant="whatsapp"
-              size="lg"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Button href={whatsappLink} variant="whatsapp" size="lg" target="_blank" rel="noopener noreferrer">
               <MessageCircle size={18} aria-hidden="true" />
               Enquire on WhatsApp
             </Button>
@@ -141,11 +138,7 @@ export default function ProductDetails() {
 
       {relatedProducts.length > 0 && (
         <section className="mt-14 border-t border-sand-dark pt-10">
-          <SectionHeading
-            title="Related Products"
-            linkTo="/products"
-            linkLabel="View all products"
-          />
+          <SectionHeading title="Related Products" linkTo="/products" linkLabel="View all products" />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {relatedProducts.map((item) => (
               <ProductCard key={item.slug} product={item} />

@@ -16,10 +16,7 @@ export default function ProductSpecs({ product }) {
   return (
     <dl className="divide-y divide-sand-dark overflow-hidden rounded-xl border border-sand-dark bg-white">
       {rows.map((row) => (
-        <div
-          key={row.label}
-          className="grid grid-cols-2 gap-4 px-4 py-3 text-sm sm:grid-cols-3"
-        >
+        <div key={row.label} className="grid grid-cols-2 gap-4 px-4 py-3 text-sm sm:grid-cols-3">
           <dt className="font-medium text-muted">{row.label}</dt>
           <dd className="text-ink sm:col-span-2">{row.value}</dd>
         </div>
