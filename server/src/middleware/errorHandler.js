@@ -1,3 +1,5 @@
+import multer from 'multer'
+
 // A small custom error class controllers can throw with a specific status code
 export class ApiError extends Error {
   constructor(statusCode, message) {
@@ -32,6 +34,15 @@ export function errorHandler(err, req, res, next) {
   if (err.code === 11000) {
     statusCode = 409
     message = 'A record with this value already exists'
+  }
+
+  // Multer upload errors (file too large, too many files, etc.)
+  if (err instanceof multer.MulterError) {
+    statusCode = 400
+    message =
+      err.code === 'LIMIT_FILE_SIZE'
+        ? 'Image must be 5MB or smaller'
+        : err.message
   }
 
   res.status(statusCode).json({

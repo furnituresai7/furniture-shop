@@ -9,6 +9,8 @@ import { errorHandler, notFound } from './middleware/errorHandler.js'
 import healthRoutes from './routes/healthRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
 import productRoutes from './routes/productRoutes.js'
+import uploadRoutes from './routes/uploadRoutes.js'
+import enquiryRoutes from './routes/enquiryRoutes.js'
 
 const app = express()
 
@@ -35,7 +37,7 @@ if (env.nodeEnv !== 'production') {
 }
 
 // General rate limit: 300 requests per 15 minutes per IP.
-// Stricter limits will be added later for the enquiry form and admin login.
+// The enquiry route has its own, stricter limit (see rateLimiters.js).
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -48,8 +50,10 @@ app.use(
 app.use('/api/health', healthRoutes)
 app.use('/api/categories', categoryRoutes)
 app.use('/api/products', productRoutes)
+app.use('/api/upload', uploadRoutes)
+app.use('/api/enquiries', enquiryRoutes)
 
-// More route groups (enquiries, auth) will be added in later steps.
+// More route groups (auth) will be added in Step 15.
 
 app.use(notFound)
 app.use(errorHandler)

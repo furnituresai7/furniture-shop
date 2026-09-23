@@ -1,8 +1,18 @@
-// Sends an enquiry to the backend.
-// TEMPORARY MOCK: it always succeeds after a short delay.
-// In the backend phase this will POST the data to /api/enquiries.
-export async function submitEnquiry(enquiry) {
-  await new Promise((resolve) => setTimeout(resolve, 800))
+const API_URL = import.meta.env.VITE_API_URL
 
-  return { success: true, data: enquiry }
+// Sends an enquiry to the backend.
+export async function submitEnquiry(enquiry) {
+  const response = await fetch(`${API_URL}/enquiries`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(enquiry),
+  })
+
+  const result = await response.json()
+
+  if (!response.ok) {
+    throw new Error(result.message || 'Failed to send enquiry')
+  }
+
+  return result
 }
