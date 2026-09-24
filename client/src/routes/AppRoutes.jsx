@@ -6,6 +6,8 @@ import About from '../pages/About'
 import AdminDashboard from '../pages/admin/AdminDashboard'
 import AdminLogin from '../pages/admin/AdminLogin'
 import AdminPlaceholder from '../pages/admin/AdminPlaceholder'
+import AdminCategories from '../pages/admin/AdminCategories'
+import AdminProducts from '../pages/admin/AdminProducts'
 import CategoryDetails from '../pages/CategoryDetails'
 import Categories from '../pages/Categories'
 import Contact from '../pages/Contact'
@@ -36,8 +38,8 @@ export default function AppRoutes() {
       <Route element={<ProtectedRoute />}>
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/products" element={<AdminPlaceholder title="Products" />} />
-          <Route path="/admin/categories" element={<AdminPlaceholder title="Categories" />} />
+                  <Route path="/admin/products" element={<AdminProducts />} />
+        <Route path="/admin/categories" element={<AdminCategories />} />
           <Route path="/admin/gallery" element={<AdminPlaceholder title="Gallery" />} />
           <Route path="/admin/enquiries" element={<AdminPlaceholder title="Enquiries" />} />
         </Route>
