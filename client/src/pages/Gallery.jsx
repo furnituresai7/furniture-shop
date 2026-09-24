@@ -1,17 +1,25 @@
 import { useState } from 'react'
 import EmptyState from '../components/common/EmptyState'
+import ErrorMessage from '../components/common/ErrorMessage'
 import SafeImage from '../components/common/SafeImage'
+import Spinner from '../components/common/Spinner'
 import Lightbox from '../components/gallery/Lightbox'
 import CategoryChips from '../components/product/CategoryChips'
-import { demoGallery, galleryCategories } from '../data/galleryData'
+import { galleryCategories } from '../data/galleryData'
+import { useFetch } from '../hooks/useFetch'
+import { getGalleryItems } from '../services/galleryService'
 
 export default function Gallery() {
   const [category, setCategory] = useState('')
   const [lightboxIndex, setLightboxIndex] = useState(null)
 
-  const visibleItems = category
-    ? demoGallery.filter((item) => item.category === category)
-    : demoGallery
+  const galleryFetch = useFetch(() => getGalleryItems(category), [category])
+  const items = (galleryFetch.data || []).map((item) => ({
+    id: item._id,
+    src: item.image?.url,
+    caption: item.caption,
+    category: item.category,
+  }))
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
@@ -29,38 +37,46 @@ export default function Gallery() {
       />
 
       <div className="mt-6">
-        {visibleItems.length > 0 ? (
-          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-            {visibleItems.map((item, index) => (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  onClick={() => setLightboxIndex(index)}
-                  aria-label={`View larger: ${item.caption}`}
-                  className="group block w-full overflow-hidden rounded-lg"
-                >
-                  <SafeImage
-                    src={item.src}
-                    alt={item.caption}
-                    className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <EmptyState
-            title="No photos in this category yet"
-            text="Please check back soon, or view all photos."
-            actionLabel="Show all photos"
-            onAction={() => setCategory('')}
-          />
+        {galleryFetch.isLoading && <Spinner label="Loading gallery" />}
+
+        {!galleryFetch.isLoading && galleryFetch.error && (
+          <ErrorMessage message={galleryFetch.error} />
+        )}
+
+        {!galleryFetch.isLoading && !galleryFetch.error && (
+          items.length > 0 ? (
+            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+              {items.map((item, index) => (
+                <li key={item.id}>
+                  <button
+                    type="button"
+                    onClick={() => setLightboxIndex(index)}
+                    aria-label={`View larger: ${item.caption || 'gallery image'}`}
+                    className="group block w-full overflow-hidden rounded-lg"
+                  >
+                    <SafeImage
+                      src={item.src}
+                      alt={item.caption}
+                      className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <EmptyState
+              title="No photos in this category yet"
+              text="Please check back soon, or view all photos."
+              actionLabel="Show all photos"
+              onAction={() => setCategory('')}
+            />
+          )
         )}
       </div>
 
       {lightboxIndex !== null && (
         <Lightbox
-          items={visibleItems}
+          items={items}
           index={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
           onNavigate={setLightboxIndex}

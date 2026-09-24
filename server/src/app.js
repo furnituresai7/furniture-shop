@@ -13,13 +13,12 @@ import productRoutes from './routes/productRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import enquiryRoutes from './routes/enquiryRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import galleryRoutes from './routes/galleryRoutes.js'
 
 const app = express()
 
-// Security headers
 app.use(helmet())
 
-// Only allow requests from our frontend, and allow cookies to be sent
 app.use(
   cors({
     origin: env.clientUrl,
@@ -27,20 +26,14 @@ app.use(
   }),
 )
 
-// Parse JSON request bodies and cookies
 app.use(express.json({ limit: '1mb' }))
 app.use(cookieParser())
-
-// Strip MongoDB-operator characters from user input (basic injection protection)
 app.use(mongoSanitize())
 
-// Log requests while developing
 if (env.nodeEnv !== 'production') {
   app.use(morgan('dev'))
 }
 
-// General rate limit: 300 requests per 15 minutes per IP.
-// Login and enquiry routes have their own, stricter limits.
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -56,6 +49,7 @@ app.use('/api/categories', categoryRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/upload', uploadRoutes)
 app.use('/api/enquiries', enquiryRoutes)
+app.use('/api/gallery', galleryRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
