@@ -2,10 +2,10 @@ import { MessageCircle } from 'lucide-react'
 import { homeContent } from '../../data/homeContent'
 import { getWhatsAppLink } from '../../utils/whatsapp'
 import Button from '../common/Button'
-import SafeImage from '../common/SafeImage'
+import HeroCarousel from './HeroCarousel'
 
 export default function Hero() {
-  const { title, subtitle, image, imageAlt } = homeContent.hero
+  const { title, subtitle, slides } = homeContent.hero
 
   return (
     <section className="bg-sand/60">
@@ -31,12 +31,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <SafeImage
-          src={image}
-          alt={imageAlt}
-          loading="eager"
-          className="aspect-[4/3] w-full rounded-2xl object-cover shadow-md"
-        />
+        <HeroCarousel slides={slides} />
       </div>
     </section>
   )

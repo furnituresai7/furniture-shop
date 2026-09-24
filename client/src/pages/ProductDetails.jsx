@@ -139,7 +139,7 @@ export default function ProductDetails() {
       {relatedProducts.length > 0 && (
         <section className="mt-14 border-t border-sand-dark pt-10">
           <SectionHeading title="Related Products" linkTo="/products" linkLabel="View all products" />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
             {relatedProducts.map((item) => (
               <ProductCard key={item.slug} product={item} />
             ))}

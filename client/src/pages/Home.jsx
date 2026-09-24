@@ -3,6 +3,7 @@ import ErrorMessage from '../components/common/ErrorMessage'
 import FeaturedProducts from '../components/home/FeaturedProducts'
 import Hero from '../components/home/Hero'
 import HomeCTA from '../components/home/HomeCTA'
+import Reveal from '../components/common/Reveal'
 import Spinner from '../components/common/Spinner'
 import StatsBar from '../components/home/StatsBar'
 import WhyChooseUs from '../components/home/WhyChooseUs'
@@ -32,12 +33,18 @@ export default function Home() {
 
       {!isLoading && !error && (
         <>
-          <CategoryGrid categories={categoriesFetch.data || []} />
-          <FeaturedProducts products={(featuredFetch.data || []).slice(0, 4)} />
+          <Reveal>
+            <CategoryGrid categories={categoriesFetch.data || []} />
+          </Reveal>
+          <Reveal>
+            <FeaturedProducts products={(featuredFetch.data || []).slice(0, 4)} />
+          </Reveal>
         </>
       )}
 
-      <WhyChooseUs />
+      <Reveal>
+        <WhyChooseUs />
+      </Reveal>
       <HomeCTA />
     </main>
   )

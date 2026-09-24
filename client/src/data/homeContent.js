@@ -6,8 +6,11 @@ export const homeContent = {
     title: 'Furniture That Makes Your House Feel Like Home',
     subtitle:
       'Stylish, comfortable and durable furniture for every room of your home.',
-    image: '/images/hero.jpg',
-    imageAlt: 'Living room furnished with a sofa and wooden furniture',
+    slides: [
+      { image: '/images/hero.jpg', alt: 'Living room furnished with a sofa and wooden furniture' },
+      { image: '/images/hero-2.jpg', alt: 'Bedroom with a solid wood bed' },
+      { image: '/images/hero-3.jpg', alt: 'Dining area with a wooden table set' },
+    ],
   },
 
   // Hidden while empty. Add real numbers supplied by the client, for example:
