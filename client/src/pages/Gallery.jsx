@@ -2,6 +2,7 @@ import { useState } from 'react'
 import EmptyState from '../components/common/EmptyState'
 import ErrorMessage from '../components/common/ErrorMessage'
 import SafeImage from '../components/common/SafeImage'
+import Seo from '../components/common/Seo'
 import Spinner from '../components/common/Spinner'
 import Lightbox from '../components/gallery/Lightbox'
 import CategoryChips from '../components/product/CategoryChips'
@@ -23,6 +24,11 @@ export default function Gallery() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+      <Seo
+        title="Gallery"
+        description="A glimpse of our showroom, designs and finished work."
+      />
+
       <header className="text-center">
         <h1 className="text-3xl font-bold sm:text-4xl">Our Gallery</h1>
         <p className="mx-auto mt-2 max-w-xl text-muted">

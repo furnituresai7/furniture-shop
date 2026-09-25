@@ -1,5 +1,6 @@
 import { Eye, Heart, Target } from 'lucide-react'
 import SafeImage from '../components/common/SafeImage'
+import Seo from '../components/common/Seo'
 import HomeCTA from '../components/home/HomeCTA'
 import WhyChooseUs from '../components/home/WhyChooseUs'
 import siteConfig from '../config/siteConfig'
@@ -26,6 +27,8 @@ export default function About() {
 
   return (
     <main>
+      <Seo title="About Us" description="Learn more about our furniture shop." />
+
       {/* Introduction */}
       <section className="bg-sand/60">
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-10 md:grid-cols-2 md:py-16">

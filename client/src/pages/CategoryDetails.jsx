@@ -3,6 +3,7 @@ import Breadcrumb from '../components/common/Breadcrumb'
 import Button from '../components/common/Button'
 import EmptyState from '../components/common/EmptyState'
 import ErrorMessage from '../components/common/ErrorMessage'
+import Seo from '../components/common/Seo'
 import Spinner from '../components/common/Spinner'
 import CategoryChips from '../components/product/CategoryChips'
 import ProductCard from '../components/product/ProductCard'
@@ -43,6 +44,8 @@ export default function CategoryDetails() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 sm:py-10">
+      <Seo title={category.name} description={`Browse our ${category.name} collection.`} />
+
       <Breadcrumb
         items={[
           { label: 'Home', to: '/' },
@@ -73,7 +76,7 @@ export default function CategoryDetails() {
 
         {!productsFetch.isLoading && !productsFetch.error && (
           products.length > 0 ? (
-                        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
               {products.map((product) => (
                 <ProductCard key={product.slug} product={product} />
               ))}

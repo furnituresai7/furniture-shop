@@ -1,10 +1,16 @@
 import ContactDetails from '../components/contact/ContactDetails'
 import EnquiryForm from '../components/contact/EnquiryForm'
 import LocationMap from '../components/contact/LocationMap'
+import Seo from '../components/common/Seo'
 
 export default function Contact() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+      <Seo
+        title="Contact Us"
+        description="Get in touch with us for enquiries, custom orders or any other information."
+      />
+
       <header className="text-center">
         <h1 className="text-3xl font-bold sm:text-4xl">Get in Touch</h1>
         <p className="mx-auto mt-2 max-w-xl text-muted">

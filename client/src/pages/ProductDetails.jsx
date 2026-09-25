@@ -3,6 +3,7 @@ import { ChevronRight, MessageCircle, Phone } from 'lucide-react'
 import Button from '../components/common/Button'
 import ErrorMessage from '../components/common/ErrorMessage'
 import SectionHeading from '../components/common/SectionHeading'
+import Seo from '../components/common/Seo'
 import Spinner from '../components/common/Spinner'
 import AvailabilityBadge from '../components/product/AvailabilityBadge'
 import ProductCard from '../components/product/ProductCard'
@@ -63,9 +64,16 @@ export default function ProductDetails() {
     getPriceInfo(product)
   const relatedProducts = relatedFetch.data || []
   const whatsappLink = getWhatsAppLink(WHATSAPP_MESSAGES.product(name))
+  const images = getProductImages(product)
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 sm:py-10">
+      <Seo
+        title={name}
+        description={description || `${name} - ${category} furniture`}
+        image={images[0]}
+      />
+
       <nav aria-label="Breadcrumb" className="mb-4 text-sm text-muted">
         <ol className="flex flex-wrap items-center gap-1">
           <li>
@@ -87,7 +95,7 @@ export default function ProductDetails() {
       </nav>
 
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-        <ProductGallery key={product.slug} images={getProductImages(product)} name={name} />
+        <ProductGallery key={product.slug} images={images} name={name} />
 
         <div>
           <p className="text-sm uppercase tracking-wide text-muted">{category}</p>
@@ -139,7 +147,7 @@ export default function ProductDetails() {
       {relatedProducts.length > 0 && (
         <section className="mt-14 border-t border-sand-dark pt-10">
           <SectionHeading title="Related Products" linkTo="/products" linkLabel="View all products" />
-                    <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
             {relatedProducts.map((item) => (
               <ProductCard key={item.slug} product={item} />
             ))}

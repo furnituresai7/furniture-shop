@@ -10,6 +10,7 @@ import WhyChooseUs from '../components/home/WhyChooseUs'
 import { useFetch } from '../hooks/useFetch'
 import { getCategories } from '../services/categoryService'
 import { getProducts } from '../services/productService'
+import Seo from '../components/common/Seo'
 
 export default function Home() {
   const categoriesFetch = useFetch(() => getCategories(), [])
@@ -20,6 +21,7 @@ export default function Home() {
 
   return (
     <main>
+      <Seo />
       <Hero />
       <StatsBar />
 

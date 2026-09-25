@@ -18,7 +18,6 @@ import Home from '../pages/Home'
 import NotFound from '../pages/NotFound'
 import ProductDetails from '../pages/ProductDetails'
 import Products from '../pages/Products'
-import StyleGuide from '../pages/StyleGuide'
 
 export default function AppRoutes() {
   return (
@@ -32,7 +31,7 @@ export default function AppRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/style-guide" element={<StyleGuide />} />
+        
       </Route>
 
       <Route path="/admin/login" element={<AdminLogin />} />

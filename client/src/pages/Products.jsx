@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom'
 import ErrorMessage from '../components/common/ErrorMessage'
 import EmptyState from '../components/common/EmptyState'
 import Pagination from '../components/common/Pagination'
+import Seo from '../components/common/Seo'
 import Spinner from '../components/common/Spinner'
 import CategoryChips from '../components/product/CategoryChips'
 import ProductCard from '../components/product/ProductCard'
@@ -52,6 +53,11 @@ export default function Products() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+      <Seo
+        title="Products"
+        description="Browse our furniture collection and find the right piece for your home."
+      />
+
       <header>
         <h1 className="text-3xl font-bold sm:text-4xl">Our Products</h1>
         <p className="mt-2 text-muted">
@@ -94,7 +100,7 @@ export default function Products() {
 
           <div className="mt-4">
             {products.length > 0 ? (
-                          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
                 {products.map((product) => (
                   <ProductCard key={product.slug} product={product} />
                 ))}

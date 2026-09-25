@@ -1,6 +1,7 @@
 import { MessageCircle } from 'lucide-react'
 import Button from '../components/common/Button'
 import ErrorMessage from '../components/common/ErrorMessage'
+import Seo from '../components/common/Seo'
 import Spinner from '../components/common/Spinner'
 import CategoryCard from '../components/category/CategoryCard'
 import { useFetch } from '../hooks/useFetch'
@@ -12,6 +13,8 @@ export default function Categories() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+      <Seo title="Categories" description="Explore our wide range of furniture categories." />
+
       <header className="text-center">
         <h1 className="text-3xl font-bold sm:text-4xl">Shop by Category</h1>
         <p className="mx-auto mt-2 max-w-xl text-muted">
