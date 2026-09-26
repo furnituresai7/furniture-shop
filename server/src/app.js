@@ -16,6 +16,7 @@ import authRoutes from './routes/authRoutes.js'
 import galleryRoutes from './routes/galleryRoutes.js'
 
 const app = express()
+app.set('trust proxy', 1)
 
 app.use(helmet())
 
