@@ -1,20 +1,20 @@
 // Single source of truth for all business information.
-// Replace the placeholder values with the client's real details.
 const siteConfig = {
-  name: '[SHOP_NAME]',
-  description: '[SHORT_BUSINESS_DESCRIPTION]',
-  phone: '[PHONE]',
+  name: 'SAI Furniture',
+  description:
+    'SAI Furniture is a furniture and interior design business based in Booty More, Ranchi, specializing in quality wooden furniture and customized furniture solutions for homes and spaces.',
+  phone: '+91 9123163379',
   whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || '',
-  email: '[EMAIL]',
-  address: '[SHOP_ADDRESS]',
-  businessHours: '[BUSINESS_HOURS]',
-  mapsUrl: '[GOOGLE_MAPS_URL]',
+  email: 'saifurnitures911@gmail.com',
+  address: 'Booty More, Bariyatu Road, Opp. Kushwaha Complex, Ranchi, Jharkhand - 834012',
+  businessHours: 'Every Day: 9:30 AM - 10:00 PM',
+  mapsUrl: 'https://maps.app.goo.gl/PcmLwPv79JVW1PLP8',
 
-  // Optional. In Google Maps: Share > Embed a map > copy the src="..." URL.
-  // Leave empty to search the map by address instead.
+  // Left empty on purpose: LocationMap.jsx automatically builds a working
+  // map from the address above when this is blank. Add a real embed src
+  // here only if the client later shares one from Google Maps > Share > Embed a map.
   mapEmbedUrl: '',
 
-  // Leave empty to hide the link in the footer
   social: {
     instagram: '',
     facebook: '',
@@ -29,7 +29,8 @@ const siteConfig = {
     { label: 'Contact', to: '/contact' },
   ],
 
-  // Temporary list for the footer; categories will come from the database later
+  // Temporary list for the footer; real categories will show once the client
+  // adds them through the admin panel.
   footerCategories: [
     { label: 'Sofa', slug: 'sofa' },
     { label: 'Beds', slug: 'beds' },
