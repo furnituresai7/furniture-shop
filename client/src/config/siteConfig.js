@@ -3,16 +3,16 @@ const siteConfig = {
   name: 'SAI Furniture',
   description:
     'SAI Furniture is a furniture and interior design business based in Booty More, Ranchi, specializing in quality wooden furniture and customized furniture solutions for homes and spaces.',
-  phone: '+91 9123163379',
+
+  // First number is used for the WhatsApp button (wa.me only supports one number).
+  // All three show up as separate Call links wherever contact details are displayed.
+  phones: ['+91 9123163379', '+91 9835334165', '+91 9334590525'],
   whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || '',
+
   email: 'saifurnitures911@gmail.com',
   address: 'Booty More, Bariyatu Road, Opp. Kushwaha Complex, Ranchi, Jharkhand - 834012',
   businessHours: 'Every Day: 9:30 AM - 10:00 PM',
   mapsUrl: 'https://maps.app.goo.gl/PcmLwPv79JVW1PLP8',
-
-  // Left empty on purpose: LocationMap.jsx automatically builds a working
-  // map from the address above when this is blank. Add a real embed src
-  // here only if the client later shares one from Google Maps > Share > Embed a map.
   mapEmbedUrl: '',
 
   social: {
@@ -29,8 +29,6 @@ const siteConfig = {
     { label: 'Contact', to: '/contact' },
   ],
 
-  // Temporary list for the footer; real categories will show once the client
-  // adds them through the admin panel.
   footerCategories: [
     { label: 'Sofa', slug: 'sofa' },
     { label: 'Beds', slug: 'beds' },

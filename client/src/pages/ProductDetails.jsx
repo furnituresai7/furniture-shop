@@ -124,7 +124,7 @@ export default function ProductDetails() {
               <MessageCircle size={18} aria-hidden="true" />
               Enquire on WhatsApp
             </Button>
-            <Button href={getPhoneLink(siteConfig.phone)} variant="outline" size="lg">
+            <Button href={getPhoneLink(siteConfig.phones[0])} variant="outline" size="lg">
               <Phone size={18} aria-hidden="true" />
               Call Now
             </Button>

@@ -6,7 +6,6 @@ import { getEmailLink, getPhoneLink } from '../../utils/contactLinks'
 
 const footerLinkClass = 'text-sand transition-colors hover:text-white'
 
-// Reusable footer anchor. External links open in a new tab.
 function FooterAnchor({ href, external = false, className = '', children }) {
   const externalProps = external
     ? { target: '_blank', rel: 'noopener noreferrer' }
@@ -20,7 +19,6 @@ function FooterAnchor({ href, external = false, className = '', children }) {
 }
 
 export default function Footer() {
-  // Only show social links that have a URL in siteConfig
   const socialLinks = [
     { label: 'Instagram', href: siteConfig.social.instagram },
     { label: 'Facebook', href: siteConfig.social.facebook },
@@ -91,9 +89,13 @@ export default function Footer() {
 
             <li className="flex items-start gap-3">
               <Phone size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
-              <FooterAnchor href={getPhoneLink(siteConfig.phone)}>
-                {siteConfig.phone}
-              </FooterAnchor>
+              <div className="flex flex-col gap-1">
+                {siteConfig.phones.map((phone) => (
+                  <FooterAnchor key={phone} href={getPhoneLink(phone)}>
+                    {phone}
+                  </FooterAnchor>
+                ))}
+              </div>
             </li>
 
             <li className="flex items-start gap-3">
@@ -118,8 +120,11 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-wood-light/40 px-4 py-4 text-center text-xs">
-        © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+      <div className="flex flex-col items-center gap-2 border-t border-wood-light/40 px-4 py-4 text-center text-xs sm:flex-row sm:justify-between">
+        <span>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</span>
+        <Link to="/admin/login" className="text-sand/70 hover:text-white hover:underline">
+          Admin Login
+        </Link>
       </div>
     </footer>
   )

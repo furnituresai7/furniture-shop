@@ -35,9 +35,13 @@ export default function ContactDetails() {
         </DetailItem>
 
         <DetailItem icon={Phone} label="Call us">
-          <a href={getPhoneLink(siteConfig.phone)} className={linkClass}>
-            {siteConfig.phone}
-          </a>
+          <div className="flex flex-col gap-1">
+            {siteConfig.phones.map((phone) => (
+              <a key={phone} href={getPhoneLink(phone)} className={linkClass}>
+                {phone}
+              </a>
+            ))}
+          </div>
         </DetailItem>
 
         <DetailItem icon={MessageCircle} label="WhatsApp">
@@ -62,7 +66,7 @@ export default function ContactDetails() {
       </ul>
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <Button href={getPhoneLink(siteConfig.phone)} className="sm:flex-1">
+        <Button href={getPhoneLink(siteConfig.phones[0])} className="sm:flex-1">
           <Phone size={18} aria-hidden="true" />
           Call
         </Button>
