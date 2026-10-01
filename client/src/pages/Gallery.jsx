@@ -58,12 +58,12 @@ export default function Gallery() {
                     type="button"
                     onClick={() => setLightboxIndex(index)}
                     aria-label={`View larger: ${item.caption || 'gallery image'}`}
-                    className="group block w-full overflow-hidden rounded-lg"
+                    className="group block aspect-square w-full overflow-hidden rounded-lg bg-sand"
                   >
                     <SafeImage
                       src={item.src}
                       alt={item.caption}
-                      className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="h-full w-full object-contain p-1.5 transition-transform duration-300 group-hover:scale-105"
                     />
                   </button>
                 </li>
