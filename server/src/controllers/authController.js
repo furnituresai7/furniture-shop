@@ -8,7 +8,10 @@ import { env } from '../config/env.js'
 const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: env.nodeEnv === 'production', // HTTPS-only cookie in production
-  sameSite: env.nodeEnv === 'production' ? 'none' : 'lax',
+  // 'lax' works now because the Vercel rewrite proxies /api/* through the
+  // same origin as the frontend, so the cookie is same-site, not cross-site.
+  // This is a stronger CSRF defense than 'none' and no longer needs it.
+  sameSite: 'lax',
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 }
 
