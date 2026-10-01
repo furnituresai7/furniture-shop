@@ -18,7 +18,7 @@ export default function ProductCard({ product }) {
         <SafeImage
           src={getProductCoverImage(product)}
           alt={name}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain p-3"
         />
 
         {hasDiscount && (

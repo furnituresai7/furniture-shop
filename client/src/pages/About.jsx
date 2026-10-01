@@ -46,12 +46,14 @@ export default function About() {
             )}
           </div>
 
-          <SafeImage
-            src={image}
-            alt={imageAlt}
-            loading="eager"
-            className="aspect-[4/3] w-full rounded-2xl object-cover shadow-md"
-          />
+                    <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-sand shadow-md">
+            <SafeImage
+              src={image}
+              alt={imageAlt}
+              loading="eager"
+              className="h-full w-full object-contain p-3"
+            />
+          </div>
         </div>
       </section>
 

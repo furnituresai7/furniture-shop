@@ -11,11 +11,13 @@ export default function CategoryCard({ category, productCount }) {
       to={`/categories/${slug}`}
       className="group block overflow-hidden rounded-xl border border-sand-dark bg-white shadow-sm transition-shadow hover:shadow-md"
     >
-      <SafeImage
-        src={imageUrl}
-        alt={name}
-        className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
-      />
+      <div className="aspect-square w-full overflow-hidden bg-sand">
+        <SafeImage
+          src={imageUrl}
+          alt={name}
+          className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
       <div className="p-3 text-center">
         <h3 className="text-base font-semibold">{name}</h3>
         {typeof productCount === 'number' && (
