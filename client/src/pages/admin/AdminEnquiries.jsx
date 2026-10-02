@@ -5,7 +5,7 @@ import Spinner from '../../components/common/Spinner'
 import { useFetch } from '../../hooks/useFetch'
 import { getEnquiries, updateEnquiryStatus } from '../../services/enquiryAdminService'
 import { getPhoneLink, getEmailLink } from '../../utils/contactLinks'
-import { getWhatsAppLink } from '../../utils/whatsapp'
+import { getWhatsAppLinkTo } from '../../utils/whatsapp'
 
 const STATUS_OPTIONS = ['new', 'contacted', 'closed']
 
@@ -115,7 +115,7 @@ export default function AdminEnquiries() {
                       <Phone size={14} aria-hidden="true" />
                       {enquiry.phone}
                     </a>
-                    <a href={getWhatsAppLink(`Hello ${enquiry.name}, thank you for your enquiry.`)}
+                    <a href={getWhatsAppLinkTo(enquiry.phone, `Hello ${enquiry.name}, thank you for your enquiry.`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-wood hover:underline"

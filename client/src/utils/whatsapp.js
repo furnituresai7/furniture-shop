@@ -9,12 +9,23 @@ export const WHATSAPP_MESSAGES = {
     `Hello, I am interested in ${productName}. Please provide more details.`,
 }
 
-// Builds a wa.me link with a pre-filled message
+// Builds a wa.me link to the shop's own WhatsApp number (customer-facing buttons)
 export function getWhatsAppLink(message = WHATSAPP_MESSAGES.general) {
   const number = siteConfig.whatsappNumber.replace(/\D/g, '')
   const text = encodeURIComponent(message)
 
   return number
     ? `https://wa.me/${number}?text=${text}`
+    : `https://wa.me/?text=${text}`
+}
+
+// Builds a wa.me link to ANY phone number (e.g. a customer's number from an
+// enquiry). Used by the admin panel to reply to a specific customer.
+export function getWhatsAppLinkTo(phoneNumber, message = '') {
+  const digits = (phoneNumber || '').replace(/\D/g, '')
+  const text = encodeURIComponent(message)
+
+  return digits
+    ? `https://wa.me/${digits}?text=${text}`
     : `https://wa.me/?text=${text}`
 }
